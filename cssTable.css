@@ -1,0 +1,27 @@
+.one table  {
+    border-collapse: collapse;
+    width: 6000%;
+}
+
+.one th, td  {
+    padding: 3px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.two table {
+    border-collapse: collapse;
+    width: 5000%;
+}
+
+.two th, td {
+    text-align: right;
+    padding: 8px;
+}
+
+.two tr:nth-child(even){background-color: #black}
+
+.two th {
+    background-color: #black;
+    color: white;
+}
