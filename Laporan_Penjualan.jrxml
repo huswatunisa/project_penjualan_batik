@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b53fee28-3839-487f-ac5b-999e8173e7f3">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="bulan" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tahun" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     barang.`kd_brg` AS barang_kd_brg,
+     barang.`nm_brg` AS barang_nm_brg,
+     barang.`harga` AS barang_harga,
+     barang.`stok` AS barang_stok,
+     penjualan.`no_jual` AS penjualan_no_jual,
+     penjualan.`tgl_jual` AS penjualan_tgl_jual,
+     penjualan.`no_faktur` AS penjualan_no_faktur,
+     penjualan.`total` AS penjualan_total,
+     penjualan.`no_pesan` AS penjualan_no_pesan,
+     sementara.`nomer` AS sementara_nomer,
+     sementara.`tanggal` AS sementara_tanggal,
+     sementara.`kode` AS sementara_kode,
+     sementara.`quantity` AS sementara_quantity,
+     sementara.`subtotal` AS sementara_subtotal,
+     date_format(penjualan.`tgl_jual`,'%M') AS bulan
+FROM
+     `sementara` sementara INNER JOIN `barang` barang ON sementara.`kode` = barang.`kd_brg`
+     INNER JOIN `penjualan` penjualan ON sementara.`nomer` = penjualan.`no_jual`
+WHERE
+month(tgl_jual)=$P{bulan} and year(tgl_jual)=$P{tahun}]]>
+	</queryString>
+	<field name="barang_kd_brg" class="java.lang.String"/>
+	<field name="barang_nm_brg" class="java.lang.String"/>
+	<field name="barang_harga" class="java.lang.Integer"/>
+	<field name="barang_stok" class="java.lang.Integer"/>
+	<field name="penjualan_no_jual" class="java.lang.String"/>
+	<field name="penjualan_tgl_jual" class="java.sql.Date"/>
+	<field name="penjualan_no_faktur" class="java.lang.String"/>
+	<field name="penjualan_total" class="java.lang.Double"/>
+	<field name="penjualan_no_pesan" class="java.lang.String"/>
+	<field name="sementara_nomer" class="java.lang.String"/>
+	<field name="sementara_tanggal" class="java.sql.Date"/>
+	<field name="sementara_kode" class="java.lang.String"/>
+	<field name="sementara_quantity" class="java.lang.Integer"/>
+	<field name="sementara_subtotal" class="java.lang.Integer"/>
+	<field name="bulan" class="java.lang.String"/>
+	<variable name="sementara_quantity_1" class="java.lang.Integer" resetType="Group" resetGroup="penjualan_no_jual" calculation="Sum">
+		<variableExpression><![CDATA[$F{sementara_quantity}]]></variableExpression>
+	</variable>
+	<variable name="sementara_subtotal_1" class="java.lang.Integer" resetType="Group" resetGroup="penjualan_no_jual" calculation="Sum">
+		<variableExpression><![CDATA[$F{sementara_subtotal}]]></variableExpression>
+	</variable>
+	<group name="penjualan_no_jual">
+		<groupExpression><![CDATA[$F{penjualan_no_jual}]]></groupExpression>
+		<groupHeader>
+			<band height="196">
+				<textField>
+					<reportElement x="229" y="0" width="158" height="20" uuid="8634abcc-f222-40d7-90b6-bc19986e016f"/>
+					<textFieldExpression><![CDATA[$F{penjualan_no_jual}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="229" y="34" width="158" height="20" uuid="d56ee1ad-46cf-4eb5-b8ba-e2c205f584e7"/>
+					<textFieldExpression><![CDATA[$F{penjualan_tgl_jual}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="229" y="76" width="158" height="20" uuid="804c9ede-1ddc-4be9-be0d-9b11b1e8e14e"/>
+					<textFieldExpression><![CDATA[$F{penjualan_no_faktur}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="229" y="112" width="158" height="20" uuid="8b3e4634-9c69-4258-883a-e4433db75b5d"/>
+					<textFieldExpression><![CDATA[$F{penjualan_no_pesan}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="20" uuid="f383b657-6c77-4be8-9c8b-c7b4987d7d1b"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[No Penjualan]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="34" width="117" height="20" uuid="4bba377a-fbeb-4461-b8a5-9dd6c5318c16"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tanggal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="76" width="117" height="20" uuid="cded640c-a6b3-4e14-87ad-c3f80570ecff"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[No Faktur]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="112" width="117" height="20" uuid="cea32802-ff9e-4cd7-8bb1-1274905ef93e"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[No Pemesanan]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="176" width="100" height="20" uuid="3dd30ebd-54be-4330-8552-65073da854ec"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Kode Barang]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="182" y="176" width="100" height="20" uuid="860b8083-3559-4b9d-9cb3-12a86aa0f1b4"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nama Barang]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="363" y="176" width="100" height="20" uuid="dc51bdd6-8b4e-434e-88f6-37476750d4b8"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Qty]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="561" y="176" width="100" height="20" uuid="14198a13-2a27-4563-a0d4-7e92e194d891"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Subtotal]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<staticText>
+					<reportElement x="183" y="3" width="100" height="20" uuid="ae1bed5d-660c-4b9c-9ea7-7e2a2c881864"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total Item]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="183" y="30" width="100" height="20" uuid="ccff91dd-a4d1-40f2-9a8a-ff7054c324fb"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Grand Total]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="363" y="0" width="142" height="20" uuid="34657cf1-7cd5-488a-b403-aff7df6ff12f"/>
+					<textFieldExpression><![CDATA[$V{sementara_quantity_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="561" y="30" width="128" height="20" uuid="96918246-4833-49e7-b8cb-d5244d401550"/>
+					<textFieldExpression><![CDATA[$V{sementara_subtotal_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="310" height="45" uuid="9171302e-c157-463f-b2e0-0dcd6322cd9d"/>
+				<textElement>
+					<font size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Laporan Penjualan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="59" width="100" height="20" uuid="c930d041-60e5-4fac-b937-eb890afb4420"/>
+				<text><![CDATA[Bulan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="363" y="59" width="100" height="20" uuid="11dc6b57-aa54-4daa-a0e4-3e4085ae814c"/>
+				<text><![CDATA[Tahun]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="162" y="59" width="100" height="20" uuid="40250aed-27ff-4c83-bfa5-b1a40e50f1e5"/>
+				<textFieldExpression><![CDATA[$F{bulan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="492" y="59" width="100" height="20" uuid="2063b909-1f50-4c21-9d27-759af63e918d"/>
+				<textFieldExpression><![CDATA[$P{tahun}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="38" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="5cf420b1-d1bd-462b-a0bd-f0516b3c6936"/>
+				<textFieldExpression><![CDATA[$F{sementara_kode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="182" y="0" width="100" height="20" uuid="1a7a1478-7646-4e29-9bd4-86e68f97722f"/>
+				<textFieldExpression><![CDATA[$F{barang_nm_brg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="363" y="0" width="127" height="20" uuid="116f2343-a973-4163-82fa-43def9fb580b"/>
+				<textFieldExpression><![CDATA[$F{sementara_quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="561" y="0" width="128" height="20" uuid="a30ff241-3eda-491d-a10c-6fefe3223190"/>
+				<textFieldExpression><![CDATA[$F{sementara_subtotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

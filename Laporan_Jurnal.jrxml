@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="54b7e1b7-b283-4bd9-8fea-24e3f383f828">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="bulan" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tahun" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     akun.`no_akun` AS akun_no_akun,
+     akun.`nm_akun` AS akun_nm_akun,
+     detail_jurnal.`no_akun` AS detail_jurnal_no_akun,
+     detail_jurnal.`nm_akun` AS detail_jurnal_nm_akun,
+     detail_jurnal.`debet` AS detail_jurnal_debet,
+     detail_jurnal.`kredit` AS detail_jurnal_kredit,
+     detail_jurnal.`total` AS detail_jurnal_total,
+     detail_jurnal.`balance` AS detail_jurnal_balance,
+     jurnal.`no_referensi` AS jurnal_no_referensi,
+     jurnal.`tgl_transaksi` AS jurnal_tgl_transaksi,
+     jurnal.`no_bukti_transaksi` AS jurnal_no_bukti_transaksi,
+     jurnal.`keterangan` AS jurnal_keterangan,
+     date_format(jurnal.`tgl_transaksi`,'%M') AS bulan
+FROM
+     `detail_jurnal` detail_jurnal INNER JOIN `akun` akun ON detail_jurnal.`nm_akun` = akun.`nm_akun`
+     INNER JOIN `jurnal` jurnal ON detail_jurnal.`no_akun` = jurnal.`no_referensi`
+WHERE
+month(tgl_transaksi)=$P{bulan} and year(tgl_transaksi)=$P{tahun}]]>
+	</queryString>
+	<field name="akun_no_akun" class="java.lang.String"/>
+	<field name="akun_nm_akun" class="java.lang.String"/>
+	<field name="detail_jurnal_no_akun" class="java.lang.String"/>
+	<field name="detail_jurnal_nm_akun" class="java.lang.String"/>
+	<field name="detail_jurnal_debet" class="java.lang.Integer"/>
+	<field name="detail_jurnal_kredit" class="java.lang.Integer"/>
+	<field name="detail_jurnal_total" class="java.lang.Double"/>
+	<field name="detail_jurnal_balance" class="java.lang.Double"/>
+	<field name="jurnal_no_referensi" class="java.lang.String"/>
+	<field name="jurnal_tgl_transaksi" class="java.sql.Date"/>
+	<field name="jurnal_no_bukti_transaksi" class="java.lang.Integer"/>
+	<field name="jurnal_keterangan" class="java.lang.String"/>
+	<field name="bulan" class="java.lang.String"/>
+	<variable name="akun_no_akun_1" class="java.lang.Integer" resetType="Group" resetGroup="jurnal_no_referensi" calculation="Count">
+		<variableExpression><![CDATA[$F{akun_no_akun}]]></variableExpression>
+	</variable>
+	<group name="jurnal_no_referensi">
+		<groupExpression><![CDATA[$F{jurnal_no_referensi}]]></groupExpression>
+		<groupHeader>
+			<band height="158">
+				<textField>
+					<reportElement x="198" y="0" width="148" height="20" uuid="c4901c94-e809-4cd0-ab72-3f0f9335f7fc"/>
+					<textFieldExpression><![CDATA[$F{jurnal_no_referensi}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="198" y="32" width="148" height="20" uuid="0cafb61d-e1b6-4266-968f-d92fd1187344"/>
+					<textFieldExpression><![CDATA[$F{jurnal_no_bukti_transaksi}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="198" y="73" width="148" height="20" uuid="6d6e3479-82ef-4617-aebe-84a49254d896"/>
+					<textFieldExpression><![CDATA[$F{jurnal_tgl_transaksi}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="138" height="20" uuid="167a6e27-c288-486a-bc5a-a966987ac69d"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[No Referensi]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="32" width="138" height="20" uuid="4bb06c92-c8a6-4915-b104-77c22cd6efe0"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[No Bukti Transaksi]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="73" width="138" height="20" uuid="8f255912-79f7-4ab5-94d2-bfc9a37c5e26"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tanggal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="138" width="100" height="20" uuid="b4a6632f-688f-4726-b6f6-a0b95333a0c0"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[No Akun]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="117" y="138" width="100" height="20" uuid="e87bd866-d7ce-4a4c-a4ea-e82b85259552"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nama Akun]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="274" y="138" width="100" height="20" uuid="2d5a2cef-9caf-4fed-a7be-108d70666ccb"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Debet]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="414" y="138" width="100" height="20" uuid="c410af40-5d31-4954-a095-6cd78e23d5ea"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Kredit]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="562" y="138" width="100" height="20" uuid="461c8c1b-4998-428a-acf7-b8f73a7c423f"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Balance]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="702" y="138" width="100" height="20" uuid="0463413d-9c05-415b-98f6-8cccbef167d7"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Keterangan]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<staticText>
+					<reportElement x="116" y="1" width="100" height="20" uuid="032ee3c2-42b8-41fe-9f66-0eb56f4aef8c"/>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="274" y="1" width="100" height="20" uuid="c5265083-b536-40cf-bd02-641f9308d48e"/>
+					<textFieldExpression><![CDATA[$V{akun_no_akun_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="90" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="298" height="55" uuid="0371ad3a-5713-4b8c-a9d9-51708d44744f"/>
+				<textElement>
+					<font size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Laporan Jurnal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="70" width="100" height="20" uuid="293fe4c6-a681-4a10-a802-b4e8163b712c"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bulan]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="198" y="70" width="100" height="20" uuid="595793f4-cc30-4701-b24a-213f09711b65"/>
+				<textFieldExpression><![CDATA[$F{bulan}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="406" y="70" width="100" height="20" uuid="d42d31e9-aa98-4022-a73c-005bafa665c5"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tahun]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="531" y="70" width="100" height="20" uuid="7731e67c-2c8a-4cf1-a95d-7f1727baba16"/>
+				<textFieldExpression><![CDATA[$P{tahun}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="47" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="b614bb9c-d06f-42b2-b055-1c7ae5bef5bd"/>
+				<textFieldExpression><![CDATA[$F{akun_no_akun}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="117" y="0" width="127" height="20" uuid="ab7f8068-a052-4ac0-ada1-605e7b5c908a"/>
+				<textFieldExpression><![CDATA[$F{detail_jurnal_nm_akun}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="274" y="0" width="124" height="20" uuid="1be1d42b-afc0-4052-8d85-3aad4684c344"/>
+				<textFieldExpression><![CDATA[$F{detail_jurnal_debet}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="414" y="0" width="117" height="20" uuid="1ee7bd7f-6876-47f0-a0e8-5ad69ebd5b67"/>
+				<textFieldExpression><![CDATA[$F{detail_jurnal_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="562" y="0" width="100" height="20" uuid="d3bf1598-c780-4fdf-875f-06c11abd3045"/>
+				<textFieldExpression><![CDATA[$F{detail_jurnal_balance}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="702" y="0" width="100" height="20" uuid="1c401b03-9020-4006-8be7-6665204175f1"/>
+				<textFieldExpression><![CDATA[$F{jurnal_keterangan}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

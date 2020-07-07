@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3e26819f-61d3-4a69-824b-a6852dd200de">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="bulan" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tahun" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     barang.`kd_brg` AS barang_kd_brg,
+     barang.`nm_brg` AS barang_nm_brg,
+     barang.`harga` AS barang_harga,
+     barang.`stok` AS barang_stok,
+     detail_pesan2.`nopes` AS detail_pesan2_nopes,
+     detail_pesan2.`tanggal` AS detail_pesan2_tanggal,
+     detail_pesan2.`kode` AS detail_pesan2_kode,
+     detail_pesan2.`qty` AS detail_pesan2_qty,
+     detail_pesan2.`subtotal` AS detail_pesan2_subtotal,
+     pemesanan2.`no_pesan` AS pemesanan2_no_pesan,
+     pemesanan2.`tgl_pesan` AS pemesanan2_tgl_pesan,
+     pemesanan2.`total` AS pemesanan2_total,
+     pemesanan2.`kd_supp` AS pemesanan2_kd_supp,
+     date_format(pemesanan2.`tgl_pesan`,'%M') AS bulan
+FROM
+     `detail_pesan2` detail_pesan2 INNER JOIN `barang` barang ON detail_pesan2.`kode` = barang.`kd_brg`
+     INNER JOIN `pemesanan2` pemesanan2 ON detail_pesan2.`nopes` = pemesanan2.`no_pesan`
+WHERE
+month(tgl_pesan)=$P{bulan} and year(tgl_pesan)=$P{tahun}]]>
+	</queryString>
+	<field name="barang_kd_brg" class="java.lang.String"/>
+	<field name="barang_nm_brg" class="java.lang.String"/>
+	<field name="barang_harga" class="java.lang.Integer"/>
+	<field name="barang_stok" class="java.lang.Integer"/>
+	<field name="detail_pesan2_nopes" class="java.lang.String"/>
+	<field name="detail_pesan2_tanggal" class="java.sql.Date"/>
+	<field name="detail_pesan2_kode" class="java.lang.String"/>
+	<field name="detail_pesan2_qty" class="java.lang.Integer"/>
+	<field name="detail_pesan2_subtotal" class="java.lang.Integer"/>
+	<field name="pemesanan2_no_pesan" class="java.lang.String"/>
+	<field name="pemesanan2_tgl_pesan" class="java.sql.Date"/>
+	<field name="pemesanan2_total" class="java.lang.Integer"/>
+	<field name="pemesanan2_kd_supp" class="java.lang.String"/>
+	<field name="bulan" class="java.lang.String"/>
+	<variable name="detail_pesan2_qty_1" class="java.lang.Integer" resetType="Group" resetGroup="pemesanan2_no_pesan" calculation="Sum">
+		<variableExpression><![CDATA[$F{detail_pesan2_qty}]]></variableExpression>
+	</variable>
+	<variable name="detail_pesan2_subtotal_1" class="java.lang.Integer" resetType="Group" resetGroup="pemesanan2_no_pesan" calculation="Sum">
+		<variableExpression><![CDATA[$F{detail_pesan2_subtotal}]]></variableExpression>
+	</variable>
+	<group name="pemesanan2_no_pesan">
+		<groupExpression><![CDATA[$F{pemesanan2_no_pesan}]]></groupExpression>
+		<groupHeader>
+			<band height="106">
+				<textField>
+					<reportElement x="215" y="0" width="146" height="20" uuid="1b0fe857-6ec8-4297-8c60-edcedd30d7e6"/>
+					<textFieldExpression><![CDATA[$F{pemesanan2_no_pesan}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="100" height="20" uuid="e462b2e6-19ee-4f64-964f-a4e1d8b039b1"/>
+					<text><![CDATA[No Pemesanan]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="215" y="41" width="146" height="20" uuid="3aed008b-347a-4973-bd29-e8edd197ef9d"/>
+					<textFieldExpression><![CDATA[$F{detail_pesan2_tanggal}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="41" width="100" height="20" uuid="71a7cc58-a6e7-4145-bcdd-98c0f5db2be6"/>
+					<text><![CDATA[Tanggal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="320" y="86" width="100" height="20" uuid="6d8f322b-005a-481c-97e4-67e9de468abe"/>
+					<text><![CDATA[Nama Barang]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="156" y="86" width="100" height="20" uuid="ce54835b-c710-41eb-a155-a55e290e6123"/>
+					<text><![CDATA[Kode Barang]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="487" y="86" width="100" height="20" uuid="e6477321-c336-431b-b867-6301d29db89b"/>
+					<text><![CDATA[Qty]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="651" y="86" width="100" height="20" uuid="6bb25939-27d5-4f64-a3cb-b53c3bf36f87"/>
+					<text><![CDATA[Subtotal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="86" width="100" height="20" uuid="54a611f4-46ba-4e96-b2da-49a0c52f0a19"/>
+					<text><![CDATA[Kode Supplier]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="49">
+				<staticText>
+					<reportElement x="156" y="0" width="100" height="20" uuid="e2993046-3a63-4652-9f8b-6bcb84f49ce3"/>
+					<text><![CDATA[Total Item]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="156" y="26" width="100" height="20" uuid="d012a963-59ca-4fe6-9949-1ea0363571c3"/>
+					<text><![CDATA[Grand Total]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="487" y="0" width="131" height="20" uuid="862d073a-83d2-4eca-9a57-434dc29dd1f1"/>
+					<textFieldExpression><![CDATA[$V{detail_pesan2_qty_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="651" y="29" width="151" height="20" uuid="646261db-0856-46ef-a96e-de3e33899a39"/>
+					<textFieldExpression><![CDATA[$V{detail_pesan2_subtotal_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="420" height="47" uuid="6d4521fc-8ade-4e17-a14a-6d28b1b82c1b"/>
+				<textElement>
+					<font size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Laporan Pemesanan User]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="59" width="100" height="20" uuid="a6e9e09a-c83c-4b9e-81c2-c2c4865d0171"/>
+				<text><![CDATA[Bulan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="59" width="100" height="20" uuid="3eae1dc6-8b3c-4b89-8ac3-34c6549a16f8"/>
+				<text><![CDATA[Tahun]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="215" y="59" width="100" height="20" uuid="c8a1a0e0-e054-419a-8709-db93adb8286d"/>
+				<textFieldExpression><![CDATA[$F{bulan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="605" y="59" width="100" height="20" uuid="594a4121-f090-44e1-ab24-065502eabe4d"/>
+				<textFieldExpression><![CDATA[$P{tahun}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="320" y="0" width="100" height="20" uuid="a5987e5b-db90-4938-bc2b-194fcc389ada"/>
+				<textFieldExpression><![CDATA[$F{barang_nm_brg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="156" y="0" width="122" height="20" uuid="d73a56a9-ca51-4744-81af-042f7d214b4f"/>
+				<textFieldExpression><![CDATA[$F{detail_pesan2_kode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="487" y="0" width="118" height="20" uuid="a13922c2-a067-4bea-8389-9bb3e40f413f"/>
+				<textFieldExpression><![CDATA[$F{detail_pesan2_qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="651" y="0" width="135" height="20" uuid="90032ee0-d74c-4617-9921-2d76e670eab1"/>
+				<textFieldExpression><![CDATA[$F{detail_pesan2_subtotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="127" height="20" uuid="1379f106-43dc-427d-8fbe-a327181e9748"/>
+				<textFieldExpression><![CDATA[$F{pemesanan2_kd_supp}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="361b1a47-9dbf-4970-9a96-f14aaae20007">
+	<property name="ireport.zoom" value="0.9090909090909141"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="Table Dataset 1" uuid="6bbf44d7-712d-44a3-903b-feb28a35095f"/>
+	<subDataset name="Table Dataset 2" uuid="304d768f-5e30-4a3e-882f-30748cca3159"/>
+	<subDataset name="Table Dataset 3" uuid="378c13ee-558c-4e19-a3b6-44aed0342d89"/>
+	<parameter name="kdsupp" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     supplier.`kd_supp` AS supplier_kd_supp,
+     supplier.`nm_supp` AS supplier_nm_supp,
+     supplier.`alamat` AS supplier_alamat,
+     supplier.`telpon` AS supplier_telpon
+FROM
+     `supplier` supplier
+WHERE 
+kd_supp <= $P{kdsupp}]]>
+	</queryString>
+	<field name="supplier_kd_supp" class="java.lang.String"/>
+	<field name="supplier_nm_supp" class="java.lang.String"/>
+	<field name="supplier_alamat" class="java.lang.String"/>
+	<field name="supplier_telpon" class="java.lang.String"/>
+	<variable name="supplier_kd_supp_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{supplier_kd_supp}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="292" height="51" uuid="bad557bb-ca0a-4b7a-b2f0-d23628f4676e"/>
+				<textElement>
+					<font size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Laporan Supplier]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" x="-19" y="77" width="1" height="21" uuid="d903cbb6-9853-4489-b08f-13701e5bbb13"/>
+			</line>
+			<line>
+				<reportElement x="10" y="10" width="1" height="21" uuid="f60d3cc5-6fc2-484c-886c-9d1de0794402"/>
+			</line>
+			<staticText>
+				<reportElement x="133" y="78" width="159" height="20" uuid="3314634d-089b-4b44-8600-930fb86bcfce"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama Supplier]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="114" height="20" uuid="e23f2549-a98c-40ef-aff3-693eb5a5c5ad"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kode Supplier]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="418" y="2" width="100" height="20" uuid="8393003f-3bb4-4e92-a60c-1a4d9e5e5958"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aalamat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="575" y="2" width="100" height="20" uuid="6568d6d1-07a5-4845-bb9d-6039b94f3de6"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telepon]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="0" y="2" width="100" height="20" uuid="3ebaa7ce-449a-4147-93bb-f85f2f72c71b"/>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="66" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="4" width="100" height="20" uuid="fd6d3c25-dba1-484f-b16b-a22e2ab4be90"/>
+				<textFieldExpression><![CDATA[$F{supplier_kd_supp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="161" y="0" width="131" height="20" uuid="b3c520dd-8bc8-415d-8b9b-e2003db73e16"/>
+				<textFieldExpression><![CDATA[$F{supplier_nm_supp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="0" width="100" height="20" uuid="ee3c5b30-78be-437f-95b1-2aafea10864c"/>
+				<textFieldExpression><![CDATA[$F{supplier_alamat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="575" y="4" width="100" height="20" uuid="e1379ff4-923a-4609-99f1-2af243f209e9"/>
+				<textFieldExpression><![CDATA[$F{supplier_telpon}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement x="164" y="4" width="100" height="20" uuid="ac828c92-d973-47cc-b39a-3142f4fc2d52"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="418" y="0" width="127" height="20" uuid="5ea80fcd-9427-4c2c-837d-c87e64ccae5a"/>
+				<textFieldExpression><![CDATA[$V{supplier_kd_supp_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
